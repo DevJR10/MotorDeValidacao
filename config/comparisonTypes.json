@@ -1,0 +1,32 @@
+{
+  "ECC_TO_S4": {
+    "label": "SAP ECC → SAP S/4HANA",
+    "description": "Carrega automaticamente as regras De/Para (DexPara) da entidade.",
+    "useRules": true
+  },
+  "ECC_TO_ECC": {
+    "label": "SAP ECC → SAP ECC",
+    "description": "Comparação literal, sem regras de conversão.",
+    "useRules": false
+  },
+  "S4_TO_S4": {
+    "label": "SAP S/4HANA → SAP S/4HANA",
+    "description": "Comparação literal, sem regras de conversão.",
+    "useRules": false
+  },
+  "API_TO_API": {
+    "label": "API → API",
+    "description": "Comparação literal entre duas origens de API.",
+    "useRules": false
+  },
+  "EXCEL_TO_API": {
+    "label": "Excel → API",
+    "description": "Comparação literal entre planilha e API.",
+    "useRules": false
+  },
+  "CUSTOM": {
+    "label": "Comparação literal (genérica)",
+    "description": "Qualquer origem, sem regras de conversão.",
+    "useRules": false
+  }
+}

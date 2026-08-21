@@ -1,0 +1,32 @@
+{
+  "table": "KNVV",
+  "keyField": {
+    "ecc": "KUNNR",
+    "s4": "KUNNR"
+  },
+  "fieldMappings": {
+    "VKORG": {
+      "eccField": "VKORG",
+      "s4Field": "VKORG",
+      "map": {
+        "3000": "BR10",
+        "3700": "BR10"
+      }
+    },
+    "VTWEG": {
+      "eccField": "VTWEG",
+      "s4Field": "VTWEG",
+      "map": {
+        "11": ["30", "50"]
+      }
+    },
+    "SPART": {
+      "eccField": "SPART",
+      "s4Field": "SPART",
+      "map": {
+        "11": ["00", "0"],
+        "12": ["01", "1"]
+      }
+    }
+  }
+}

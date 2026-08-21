@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Validador de Dados — V2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="./css/styles.css" />
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0/dist/chartjs-plugin-datalabels.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/exceljs@4.4.0/dist/exceljs.min.js"></script>
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="topbar__brand">
+      <span class="topbar__mark" aria-hidden="true"></span>
+      <span class="topbar__title">Validador de Dados <span class="topbar__version">V2</span></span>
+    </div>
+    <p class="topbar__subtitle">Motor de validação genérico — Excel, CSV ou API, qualquer entidade</p>
+  </header>
+
+  <main class="app">
+
+    <!-- ============ VIEW 1: UPLOAD / CONFIGURAÇÃO ============ -->
+    <section id="view-upload" class="view is-active">
+      <div class="panel">
+        <h2>1. Tipo de comparação</h2>
+        <label>O que você está comparando?
+          <select id="comparisonType"></select>
+        </label>
+        <p id="rulesHint" class="hint"></p>
+      </div>
+
+      <div class="panel">
+        <h2>2. Entidade / objeto de dados</h2>
+        <label>Qual entidade?
+          <select id="entityName"></select>
+        </label>
+        <div id="customKeyRow" class="row" style="display:none;">
+          <label>Campos da chave composta (separados por vírgula)
+            <input type="text" id="customKeyFields" placeholder="ex: ID, CAMPO_A, CAMPO_B" />
+          </label>
+        </div>
+      </div>
+
+      <div class="panel">
+        <h2>3. Campos a analisar <span class="hint hint--inline">(opcional — deixe vazio para analisar todos os campos)</span></h2>
+        <div id="fieldFilterContainer"></div>
+        <div class="field-filter-actions">
+          <button type="button" id="clearFieldFilterBtn" class="btn btn--ghost btn--small">Limpar filtros</button>
+        </div>
+      </div>
+
+      <h2 class="section-label">4. Origem dos dados</h2>
+      <div class="panel panel--split">
+        <div id="originSource" class="source-card"></div>
+        <div id="destSource" class="source-card"></div>
+      </div>
+
+      <div class="actions">
+        <button id="startBtn" class="btn btn--primary">Iniciar validação</button>
+      </div>
+    </section>
+
+    <!-- ============ VIEW 2: PROGRESSO ============ -->
+    <section id="view-progress" class="view">
+      <div class="panel panel--center">
+        <h2>Processando validação</h2>
+        <div class="progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+          <div id="progressBar" class="progress-fill"></div>
+        </div>
+        <p id="progressLabel" class="progress-label">Iniciando...</p>
+        <p id="progressEta" class="progress-eta"></p>
+
+        <ol class="pipeline">
+          <li data-stage="import">Leitura</li>
+          <li data-stage="rules">Regras</li>
+          <li data-stage="indexing">Indexação</li>
+          <li data-stage="comparing">Comparação</li>
+          <li data-stage="summarizing">Resultado</li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ============ VIEW 3: DASHBOARD ============ -->
+    <section id="view-results" class="view">
+      <div class="results-header">
+        <h2>Resultado — <span id="resultEntity" class="mono"></span></h2>
+        <div class="export-actions">
+          <button id="exportDivergences" class="btn btn--ghost">Exportar divergências</button>
+          <button id="exportValid" class="btn btn--ghost">Exportar válidos</button>
+          <button id="exportUnmatched" class="btn btn--ghost">Exportar sem correspondência</button>
+          <button id="exportSummary" class="btn btn--ghost">Exportar resumo</button>
+          <button id="backToUpload" class="btn btn--ghost">Nova validação</button>
+        </div>
+      </div>
+
+      <div id="heroBanner" class="hero-banner"></div>
+      <p id="fieldFilterBanner" class="field-filter-banner"></p>
+
+      <div class="cards-section">
+        <h3 class="cards-section__title">Cobertura</h3>
+        <div id="coverageCards" class="cards-grid"></div>
+      </div>
+
+      <div class="cards-section">
+        <h3 class="cards-section__title">Qualidade — registros e clientes</h3>
+        <div id="qualityCards" class="cards-grid"></div>
+      </div>
+
+      <div class="chart-single">
+        <h3>Clientes válidos x com divergência</h3>
+        <div class="chart-wrapper chart-wrapper--single"><canvas id="clientsChart"></canvas></div>
+      </div>
+
+      <div class="chart-wide">
+        <h3>Campos com erro — por quantidade de clientes afetados</h3>
+        <div class="chart-wrapper chart-wrapper--wide"><canvas id="criticalFieldsChart"></canvas></div>
+      </div>
+
+      <div class="cards-section">
+        <h3 class="cards-section__title">Performance</h3>
+        <div id="performanceCards" class="cards-grid"></div>
+      </div>
+
+      <div class="panel">
+        <div class="divergence-toolbar">
+          <h3>Divergências</h3>
+          <div class="divergence-toolbar__controls">
+            <select id="divergenceTypeFilter">
+              <option value="all">Todos</option>
+              <option value="empty">Apenas campos vazios</option>
+              <option value="valueDiff">Apenas diferenças de valor (origem × destino)</option>
+            </select>
+            <input type="search" id="divergenceSearch" placeholder="Buscar por ID, campo ou valor..." />
+          </div>
+        </div>
+        <div class="table-wrapper">
+          <table class="data-table">
+            <thead>
+              <tr><th>ID</th><th>Campo</th><th>Valor origem</th><th>Valor destino</th><th>Status</th></tr>
+            </thead>
+            <tbody id="divergenceTableBody"></tbody>
+          </table>
+        </div>
+        <div id="divergencePagination" class="pagination"></div>
+      </div>
+    </section>
+
+  </main>
+
+  <script type="module" src="./js/app.js"></script>
+</body>
+</html>

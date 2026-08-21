@@ -1,0 +1,34 @@
+{
+  "KNA1": {
+    "label": "KNA1 - Dados gerais do cliente",
+    "primaryKey": ["KUNNR"]
+  },
+  "KNB1": {
+    "label": "KNB1 - Dados do cliente por empresa",
+    "primaryKey": ["KUNNR", "BUKRS"]
+  },
+  "KNVV": {
+    "label": "KNVV - Dados de vendas do cliente",
+    "primaryKey": ["KUNNR", "VKORG", "VTWEG", "SPART"]
+  },
+  "KNB5": {
+    "label": "KNB5 - Correspondência do cliente",
+    "primaryKey": ["KUNNR", "BUKRS"]
+  },
+  "KNVI": {
+    "label": "KNVI - Indicador de imposto por cliente",
+    "primaryKey": ["KUNNR", "VKORG", "ALAND", "TATYP"]
+  },
+  "KNVP": {
+    "label": "KNVP - Parceiros do cliente",
+    "primaryKey": ["KUNNR", "VKORG", "VTWEG", "SPART", "PARVW"]
+  },
+  "ARDC": {
+    "label": "ARDC - Controle de crédito do cliente",
+    "primaryKey": ["KUNNR", "KKBER"]
+  },
+  "ARD6": {
+    "label": "ARD6 - Segmentos de crédito do cliente",
+    "primaryKey": ["KUNNR", "KKBER", "CTLPC"]
+  }
+}

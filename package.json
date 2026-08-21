@@ -1,0 +1,13 @@
+{
+  "name": "validador-dados-v2",
+  "version": "2.2.0",
+  "private": true,
+  "description": "Motor de validação de dados genérico (Excel, CSV, API) — evoluído do Validador de Dados SAP.",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js --dev"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

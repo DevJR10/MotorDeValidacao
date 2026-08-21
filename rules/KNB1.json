@@ -1,0 +1,16 @@
+{
+  "table": "KNB1",
+  "keyField": {
+    "ecc": "KUNNR",
+    "s4": "KUNNR"
+  },
+  "fieldMappings": {
+    "BUKRS": {
+      "eccField": "BUKRS",
+      "s4Field": "BUKRS",
+      "map": {
+        "CS7900": "BR3100"
+      }
+    }
+  }
+}

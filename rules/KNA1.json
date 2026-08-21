@@ -1,0 +1,63 @@
+{
+  "table": "KNA1",
+  "keyField": {
+    "ecc": "KUNNR",
+    "s4": "KUNNR"
+  },
+  "fieldMappings": {
+    "VBUND": {
+      "eccField": "VBUND",
+      "s4Field": "VBUND",
+      "map": {
+        "CS1000": null,
+        "CS1100": ["BR0000"],
+        "CS1200": null,
+        "CS1300": null,
+        "CS2000": ["BR3000"],
+        "CS3000": ["BR1000"],
+        "CS4000": null,
+        "CS4100": ["CL3000"],
+        "CS4130": ["CL8000"],
+        "CS4200": ["PE3000"],
+        "CS4230": ["PE8000"],
+        "CS4300": ["CO3000"],
+        "CS4330": ["CO8000"],
+        "CS4400": ["MX3000"],
+        "CS4410": ["MX1000"],
+        "CS4420": ["MX9000"],
+        "CS4430": ["MX8000"],
+        "CS4500": ["AR3000"],
+        "CS4530": ["AR8000"],
+        "CS4540": ["AR3100"],
+        "CS4600": null,
+        "CS5000": null,
+        "CS6100": null,
+        "CS6200": null,
+        "CS6300": null,
+        "CS6310": null,
+        "CS6350": null,
+        "CS6400": null,
+        "CS6500": null,
+        "CS6600": null,
+        "CS6610": null,
+        "CS6620": null,
+        "CS6700": null,
+        "CS6750": null,
+        "CS6800": null,
+        "CS6850": null,
+        "CS6900": null,
+        "CS7300": null,
+        "CS7400": null,
+        "CS7500": null,
+        "CS7600": ["BR1100"],
+        "CS7900": ["BR3100"],
+        "CS8002": ["BR8000"],
+        "CS8500": ["BR9000"],
+        "CS8600": null,
+        "CS9000": ["BR9100"],
+        "MCA": null,
+        "SLE0": null
+      }
+    }
+  }
+}
